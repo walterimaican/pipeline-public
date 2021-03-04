@@ -17,7 +17,6 @@
         "url": "git+https://github.com/walterimaican/pipeline-public.git"
     },
     "author": "walterimaican",
-    "license": "ISC",
     "bugs": {
         "url": "https://github.com/walterimaican/pipeline-public/issues"
     },
