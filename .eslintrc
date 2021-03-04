@@ -1,0 +1,18 @@
+{
+    "env": {
+        "commonjs": true,
+        "es2020": true,
+        "node": true
+    },
+    "parserOptions": {
+        "ecmaVersion": 12
+    },
+    "rules": { "sort-requires/sort-requires": 2 },
+    "extends": [
+        "eslint:recommended",
+        "plugin:jest/recommended",
+        "plugin:jest/style",
+        "prettier"
+    ],
+    "plugins": ["jest", "sort-requires"]
+}

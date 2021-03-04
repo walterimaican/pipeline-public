@@ -1,0 +1,4 @@
+node_modules
+coverage
+test-output-ignore
+test-input-ignore

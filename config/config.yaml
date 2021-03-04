@@ -1,0 +1,90 @@
+---
+# Logs are pushed to GitHub - these properties indicate where to push them
+wrapperConfigs:
+    commitFork:
+    commitBranch:
+
+# Absolute path to where this program is located
+pipelinePath:
+# Sames as above without drive letter eg. 'C:/folder/pipeline' -> 'folder/pipeline'
+pipelinePathNoDrive:
+
+# Paths to folders and files within this program, relative to the root directory
+relativePaths:
+    # Folders used for holding mock inputs or outputs when running unit tests
+    testInput: test-input-ignore
+    testOutput: test-output-ignore
+
+    # Folders in which logs and individual financial configs are placed
+    data: data/
+    logs: logs/
+
+    # A JSON with a number indicating the most recent production run
+    runNumberJSON: logs/runNumber.json
+
+    # Location of main function
+    pipelineJS: src/pipeline.js
+
+    # Location of script used to push logs to GitHub
+    pushCommitsShell: src/scripts/push-commits.sh
+
+# Absolute paths outside of this program's directory
+externalPaths:
+    # Location of VeraCrypt volume
+    volume:
+
+    # Location of other folders that this program can use
+    desktop:
+    downloads:
+    photosInput:
+    photosOutput:
+
+# Drive letter on which the VeraCrypt volume will be mounted
+veracryptDrive: V
+
+# Relative paths inside the volume, once decrypted
+veracryptPaths:
+    credentials:
+    financialsDirectory:
+
+# A set of configurations for running Puppeteer
+puppeteer:
+    # A set of configurations for puppeteer-extra-plugin-user-preferences
+    userPrefs:
+        download:
+            prompt_for_download: false
+        plugins:
+            always_open_pdf_externally: true
+
+    # A set of configurations for puppeteer-cluster
+    maxConcurrency: 10
+    clustersTimeout: 1200000
+
+    # A set of configurations for vanilla puppeteer
+    puppeteerOptions:
+        headless: false
+        defaultViewport:
+        args:
+            - '--start-maximized'
+        slowMo: 5
+
+# A set of configurations for executing rclone syncing
+rclone:
+    # Source path
+    source:
+
+    # Destination path (local) or bucket/S3 endpoint/etc (cloud)
+    destination:
+        local:
+        cloud:
+
+    # Rclone script used for both local and cloud backups
+    baseScript: rclone sync -P --transfers 32
+
+    # Optional flags that can be added to the end of the script
+    additionalFlags:
+        local: ''
+        cloud: '--fast-list'
+
+# A link to where photos are backed up, and from which need to be deleted
+cloudPhotos:

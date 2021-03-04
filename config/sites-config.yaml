@@ -1,0 +1,134 @@
+---
+# An array of financial sites that will be visited when running in dev
+dev:
+
+# An array of financial sites that will be visited when running in prod
+finances:
+
+# The following is a template for the different site configs possible.
+# For a given site, you could have a single or multiple accounts - use the appropriate template.
+# Except where notated as 'REQUIRED', assume all configs are optional
+
+# An array of financial sites
+template:
+    # REQUIRED #
+    # A string identifying eg. "CHASE"
+    - id: SITE_IDENTIFIER
+
+      # REQUIRED #
+      login:
+          # REQUIRED #
+          # Site URL
+          link: https://site_identifier.com/
+
+          # A key-value pair to be set as needed
+          cookie:
+              name: cookieName
+              value: cookieValue
+
+          # A CSS selector for iframe (if present)
+          iframe: div#iframe
+
+          # REQUIRED #
+          # A CSS selector for username text input
+          usernameField: div#username
+
+          # REQUIRED #
+          # A CSS selector for password text input
+          passwordField: div#password
+
+          # REQUIRED #
+          # A CSS selector for login button
+          loginButton: button#login
+
+          # URL for page with security questions, if encountered
+          securityPage: https://site_identifier.com/securitypage
+
+          # An array of CSS selectors for elements to click on during MFA
+          mfa:
+              - div#first
+              - div#second
+              - div#third
+
+          # A CSS selector for the element whose value indicates MFA request was sent
+          mfaSentElementSelector: div#sent
+
+          # An HTML attribute of the above element, whose value will be checked against
+          mfaSentValidationMethod: innerText
+
+          # A text string to check against above validation method to verify MFA request was sent
+          mfaSuccessfullySentText: MFA was sent
+
+      # REQUIRED #
+      # If this is a single-account site, statements is an object (use the below template as is)
+      # If this is a multi-account site, statements is an array of objects eg.
+      #
+      # statements:
+      #    - account: x1234
+      #      link: https://site_identifier.com/statements
+      #      manual: https://www.google.com/
+      #    - account: x5678
+      #      link: https://site_identifier.com/statements
+      #      manual: https://www.google.com/
+      #
+      statements:
+          # A string identifying the account
+          account: x1234
+
+          # REQUIRED - use only 1 of the below 3 methods #
+          # URL pointing to the statements page - PREFERRED METHOD
+          link: https://site_identifier.com/statements
+          # A CSS selector passed to 'page.click()' - USE IF LINK DOES NOT WORK
+          element: div#statements
+          # A CSS selector passed to 'page.$eval()' - USE IF LINK AND ELEMENT DO NOT WORK
+          evalElement: div#statements
+
+          # To completely download all appropriate statements for a given site involves a
+          # lot of development time to find the right elements and attributes. If you'd like,
+          # you can automate the login process and navigating to the statements page and then
+          # manually download statements from there. If so, add this option, 'manual', and set
+          # it to a URL. When you are done manaully downloading statements, simply navigate to
+          # the URL and the program will exit that page for you.
+          manual: https://www.google.com/
+
+          # A CSS selector common to all elements containing statements (and their dates)
+          dateElements: div.statements
+
+          # An array of CSS selectors that can be chained to give a string for validation eg.
+          # dateElement[candidateAttribute] or dateElement[candidateAttribute][candidateAttribute]
+          # The string given as a result should be an HTML attribute
+          candidateAttributes:
+              - name
+
+          # A RegEx string used to match the HTML attribute given by candidateAttributes
+          # If it matches, then the element selected should contain the date
+          # If it fails the RegEx, then the element selected should not contain the date
+          regex: Statement Date
+
+          # An HTML attribute of the element that passes the RegEx above
+          # This HTML attribute should contain the date
+          dateTextAttribute: innerText
+
+          # A RegEx that will be executed against the string given by dateTextAttribute
+          # If the string given by dateTextAttribute cannot be processed by Luxon,
+          # then use this RegEx to preprocess and extract a string in datetime format
+          luxonRegex: "\\d{2}_\\d{2}_\\d{4}"
+
+          # A format string passed to Luxon's 'fromFormat()' to create a DateTime object
+          # This format is executed on the string given by dateTextAttribute (or after
+          # preprocessing with luxonRegex) in order to create a DateTime object
+          dateFormat: LLL dd y
+
+          # An added timeout (number in milliseconds) between each element execution
+          # Use if puppeteer is executing too quickly (and skipping steps/statements)
+          stepDelay: 1000
+
+          # An xPath selector used to find those statement elements to click on
+          # Clicking on these elements should download the statement associated
+          xpath: span
+
+          # An array of CSS selectors that identify elements to click on
+          # If clicking on the element given by the above xPath selector does not
+          # immediately download the statement, use these steps to finish downloading
+          download:
+              - button#download

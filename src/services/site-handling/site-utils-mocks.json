@@ -1,0 +1,76 @@
+{
+    "rawTextList": ["Jan 01, 2001", "Feb 02, 2002", "Mar 03, 2003"],
+    "parsedLuxonList": [
+        "2001-01-01T00:00:00.000-06:00",
+        "2002-02-02T00:00:00.000-06:00",
+        "2003-03-03T00:00:00.000-06:00"
+    ],
+    "generateDateTuplesSite": {
+        "id": "generateDateTuplesSite",
+        "statements": {
+            "dateFormat": "LLL dd, y"
+        }
+    },
+    "rawTextListLuxonRegex": ["Payslip-01_01_2001.pdf"],
+    "parsedLuxonListLuxonRegex": ["2001-01-01T00:00:00.000-06:00"],
+    "generateDateTuplesLuxonRegexSite": {
+        "id": "generateDateTuplesSite",
+        "statements": {
+            "luxonRegex": "\\d{2}_\\d{2}_\\d{4}",
+            "dateFormat": "LL_dd_y"
+        }
+    },
+    "mockSite": {
+        "id": "MOCK_SITE",
+        "statements": {
+            "account": "x1234"
+        }
+    },
+    "mockSiteJoined": "MOCK_SITE x1234",
+    "mockSiteJSON": {
+        "latestDate": "2016-08-01",
+        "type": "Statements"
+    },
+    "mockSiteLuxon": "2016-08-01T00:00:00.000-05:00",
+    "mockSiteNoAccount": {
+        "id": "MOCK_SITE_NO_ACCOUNT",
+        "statements": {}
+    },
+    "mockSiteNoAccountJoined": "MOCK_SITE_NO_ACCOUNT",
+    "mockSiteNoAccountJSON": {
+        "latestDate": "2017-09-02",
+        "type": "Statements"
+    },
+    "mockSiteNoAccountLuxon": "2017-09-02T00:00:00.000-05:00",
+    "singleAccountSite": {
+        "id": "singleAccountSite",
+        "statements": {
+            "account": "0001"
+        }
+    },
+    "multiAccountSite": {
+        "id": "multiAccountSite",
+        "statements": [
+            {
+                "account": "1234"
+            },
+            {
+                "account": "5678"
+            }
+        ]
+    },
+    "multiAccountSiteSplit": [
+        {
+            "id": "multiAccountSite",
+            "statements": {
+                "account": "1234"
+            }
+        },
+        {
+            "id": "multiAccountSite",
+            "statements": {
+                "account": "5678"
+            }
+        }
+    ]
+}

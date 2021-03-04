@@ -1,0 +1,67 @@
+{
+    "name": "pipeline-public",
+    "version": "1.0.0",
+    "description": "A pipeline to automate data transformation and backups.",
+    "main": "pipeline.js",
+    "scripts": {
+        "prod": "cross-env NODE_ENV=prod node src/pipeline-wrapper.js",
+        "dev": "cross-env NODE_ENV=dev node --trace-warnings src/pipeline.js",
+        "eslint:all": "npx eslint .",
+        "prettier:all": "npx prettier --write .",
+        "test": "cross-env SUPPRESS_CONSOLE_DURING_TESTING=true jest --coverage",
+        "test:verbose": "jest --coverage",
+        "test:debug": "jest --coverage --runInBand --detectOpenHandles"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/walterimaican/pipeline-public.git"
+    },
+    "author": "walterimaican",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/walterimaican/pipeline-public/issues"
+    },
+    "homepage": "https://github.com/walterimaican/pipeline-public#readme",
+    "dependencies": {
+        "cross-env": "^7.0.2",
+        "lodash": "^4.17.20",
+        "luxon": "^1.25.0",
+        "observable-process": "^8.0.0-pre1",
+        "open": "^7.3.1",
+        "puppeteer": "^5.2.1",
+        "puppeteer-cluster": "^0.22.0",
+        "puppeteer-extra": "^3.1.15",
+        "puppeteer-extra-plugin-stealth": "^2.6.2",
+        "puppeteer-extra-plugin-user-data-dir": "^2.2.7",
+        "puppeteer-extra-plugin-user-preferences": "^2.2.7",
+        "winston": "^3.3.3",
+        "yaml": "^1.10.0"
+    },
+    "devDependencies": {
+        "@types/jest": "^26.0.13",
+        "@types/luxon": "^1.25.0",
+        "@types/puppeteer": "^3.0.2",
+        "eslint": "^7.7.0",
+        "eslint-config-prettier": "^6.11.0",
+        "eslint-plugin-jest": "^24.0.0",
+        "eslint-plugin-sort-requires": "^2.1.0",
+        "husky": "^4.2.5",
+        "jest": "^26.4.2",
+        "lint-staged": "^10.2.11",
+        "prettier": "2.0.5"
+    },
+    "husky": {
+        "hooks": {
+            "pre-commit": "lint-staged && npm run test"
+        }
+    },
+    "lint-staged": {
+        "*.js": "eslint --fix",
+        "*.{js,css,md}": "prettier --write"
+    },
+    "jest": {
+        "setupFiles": [
+            "./jest/globals.js"
+        ]
+    }
+}
